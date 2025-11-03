@@ -43,5 +43,8 @@ export const loginUser = async (data: LoginBody) => {
     { expiresIn: '1d' }
   );
 
-  return token;
+  return {
+    token,
+    user: { id: user.id, email: user.email },
+  };
 };

@@ -46,11 +46,12 @@ export const login = async (req: Request, res: Response) => {
   }
 
   try {
-    const token = await authService.loginUser(validationResult.data);
+    const { token, user } = await authService.loginUser(validationResult.data);
 
     res.status(200).json({
       message: 'Zalogowano pomyślnie!',
       token: token,
+      user: user,
     });
   } catch (err) {
     if (
