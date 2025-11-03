@@ -16,4 +16,3 @@ export interface Habit {
   userId: string;
   createdAt: string;
 }
-z
