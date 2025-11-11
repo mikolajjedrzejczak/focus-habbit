@@ -1,6 +1,7 @@
 import './config.js';
 import express from 'express';
 import passport from 'passport';
+import cors from 'cors';
 import './middleware/passport.middleware.js';
 
 // routes
@@ -10,6 +11,11 @@ import habitRouter from './routes/habit.routes.js';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+  })
+);
 app.use(express.json());
 
 app.use(passport.initialize());
