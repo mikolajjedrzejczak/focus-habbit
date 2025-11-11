@@ -1,0 +1,123 @@
+@use "../styles/variables" as var;
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var.$background-color;
+  width: 100%;
+  min-height: 100vh;
+  padding: 1.5rem;
+  box-sizing: border-box;
+
+  & > form {
+    width: 100%;
+  }
+
+  &__header {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+    color: var.$text-color;
+  }
+
+  &__group {
+    margin-bottom: 1.5rem;
+  }
+
+  &__label {
+    font-size: 0.875rem; 
+    font-weight: 600;
+    color: var.$text-color;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  &__input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+    border: 2px solid var.$border-color;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var.$text-color;
+    background: #f9fafb;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+
+    &:focus {
+      border-color: var.$primary-color;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(var.$primary-color, 0.2);
+      background: var.$background-color;
+  }
+
+  &__button {
+    width: 100%; 
+    padding: 1rem; 
+    border: none;
+    border-radius: 8px;
+    background-color: var.$primary-color;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700; 
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 1.5rem;
+
+    &:hover {
+      background-color: var.$primary-color-dark;
+    }
+    
+    &:active {
+      transform: scale(0.99);
+    }
+
+    &:disabled {
+      background-color: #a0a0a0;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+  }
+
+  &__error {
+    color: var.$danger-color;
+    text-align: left;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  &__switch {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var.$text-color-light;
+
+    a {
+      color: var.$primary-color;
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+}
+
+@media (min-width: 640px) {
+  .authForm {
+    background: #f9fafb;
+
+    & > form {
+      max-width: 400px;
+      background: var.$background-color;
+      padding: 3rem;
+      border-radius: var.$border-radius;
+      box-shadow: var.$box-shadow;
+    }
+  }
+}
