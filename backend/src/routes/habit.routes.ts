@@ -8,6 +8,7 @@ router.use(authenticateJwt);
 
 router.get('/', habitController.getAllUserHabits);
 router.post('/', habitController.createNewHabit);
+router.post('/:id/toggle', habitController.toggleHabit);
 router.delete('/:id', habitController.deleteHabit);
 
 export default router;
