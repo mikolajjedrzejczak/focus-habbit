@@ -1,4 +1,4 @@
-import { type Habit } from '../types/habit.types.js';
+import { type Habit} from '../types/habit.types.js';
 
 const getTodayUTC = () => {
   const today = new Date();

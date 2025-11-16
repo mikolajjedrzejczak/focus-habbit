@@ -78,12 +78,12 @@
     font-weight: 500;
     color: var.$text-color;
     word-break: break-word;
-  }
 
-  &_done {
+    &_done {
       color: var.$text-color-light;
       text-decoration: line-through;
     }
+  }
 
   &__actions {
     display: flex;

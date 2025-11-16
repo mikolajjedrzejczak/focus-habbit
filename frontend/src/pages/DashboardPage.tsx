@@ -3,6 +3,7 @@ import { useHabits } from '../hooks/useHabits';
 import { Navbar } from '../layout/Navbar';
 import styles from './DashboardPage.module.scss';
 import { isHabitDoneToday } from '../utils/date.helpers';
+import HabitCard from '../components/habits/HabitCard';
 
 const DashboardPage = () => {
   const {
@@ -61,39 +62,9 @@ const DashboardPage = () => {
 
         <ul className={styles.habit_list}>
           {habits &&
-            habits.map((habit) => {
-              const isDone = isHabitDoneToday(habit);
-
-              return (
-                <li key={habit.id} className={styles.habit_list__item}>
-                  <span
-                    className={`${styles.habit_list__name} ${
-                      isDone ? styles.habit_list__name_done : ''
-                    }`}
-                  >
-                    {habit.name}
-                  </span>
-                  <div className={styles.habit_list__actions}>
-                    <button
-                      onClick={() => toggleHabit(habit.id)}
-                      disabled={isOperationPending}
-                      className={`${styles.habit_list__toggle_button} ${
-                        isDone ? styles.habit_list__toggle_button_done : ''
-                      }`}
-                    >
-                      {isDone ? 'Cofnij' : 'Zrobione!'}
-                    </button>
-                    <button
-                      onClick={() => deleteHabit(habit.id)}
-                      disabled={isOperationPending}
-                      className={styles.habit_list__delete_button}
-                    >
-                      Usuń
-                    </button>
-                  </div>
-                </li>
-              );
-            })}
+            habits.map((habit) => (
+              <HabitCard key={habit.id} habit={habit} />
+            ))}
         </ul>
       </main>
     </div>

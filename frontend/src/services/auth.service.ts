@@ -3,7 +3,12 @@ import type { LoginBody, RegisterBody, User } from '../types/auth.types';
 
 interface LoginResponse {
   message: string;
-  token: string;
+  accessToken: string;
+  user: User;
+}
+
+interface RefreshResponse {
+  accessToken: string;
   user: User;
 }
 
@@ -22,4 +27,12 @@ export const loginRequest = (data: LoginBody) => {
 
 export const getMeRequest = () => {
   return apiClient.get<User>('/auth/me');
+};
+
+export const logoutRequest = () => {
+  return apiClient.post('/auth/logout');
+};
+
+export const refreshRequest = () => {
+  return apiClient.post<RefreshResponse>('/auth/refresh');
 };
