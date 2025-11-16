@@ -1,12 +1,26 @@
 import bcrypt from 'bcryptjs';
 import db from '../db.js';
 import type { LoginBody, RegisterBody } from '../validators/auth.validator.js';
-import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
+import { generateAccessToken, hashToken } from '../utils/token.utils.js';
 
 export const findUserByEmail = (email: string) => {
   return db.user.findUnique({
     where: { email },
   });
+};
+
+export const generateRefreshToken = async (userId: string) => {
+  const newRefreshToken = crypto.randomBytes(64).toString('hex');
+
+  await db.user.update({
+    where: { id: userId },
+    data: {
+      refreshToken: newRefreshToken,
+    },
+  });
+
+  return newRefreshToken;
 };
 
 export const createUser = async (data: RegisterBody) => {
@@ -33,18 +47,49 @@ export const loginUser = async (data: LoginBody) => {
   }
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) {
-    throw new Error('Niepoprawne hasło!');
-  }
+  if (!isPasswordValid) throw new Error('Niepoprawne hasło!');
 
-  const token = jwt.sign(
-    { userId: user.id },
-    process.env.JWT_SECRET as string,
-    { expiresIn: '1d' }
-  );
+  const accessToken = generateAccessToken(user.id);
+
+  const newRefreshToken = crypto.randomBytes(64).toString('hex');
+
+  const hashedRefreshToken = hashToken(newRefreshToken);
+
+  await db.user.update({
+    where: { id: user.id },
+    data: {
+      refreshToken: hashedRefreshToken,
+    },
+  });
 
   return {
-    token,
+    accessToken,
+    refreshToken: newRefreshToken,
     user: { id: user.id, email: user.email },
   };
+};
+
+export const refreshAccessToken = async (token: string) => {
+  const hashedToken = hashToken(token);
+
+  const user = await db.user.findUnique({
+    where: { refreshToken: hashedToken },
+  });
+
+  if (!user) throw Error('Niepoprawny refresh token!');
+
+  const newAccessToken = generateAccessToken(user.id);
+
+  return { accessToken: newAccessToken };
+};
+
+export const logoutUser = async (token: string) => {
+  const hashedToken = hashToken(token);
+
+  await db.user.updateMany({
+    where: { refreshToken: hashedToken },
+    data: {
+      refreshToken: null,
+    },
+  });
 };

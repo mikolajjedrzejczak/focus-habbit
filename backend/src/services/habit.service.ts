@@ -1,5 +1,5 @@
 import db from '../db.js';
-import { getTodayDate } from '../utils.js';
+import { getTodayDate } from '../utils/date.utils.js';
 import type { CreateHabitBody } from '../validators/habits.validator.js';
 
 export const findHabitsByUserId = (userId: string) => {
