@@ -80,7 +80,10 @@ export const refreshAccessToken = async (token: string) => {
 
   const newAccessToken = generateAccessToken(user.id);
 
-  return { accessToken: newAccessToken };
+  return {
+    accessToken: newAccessToken,
+    user: { id: user.id, email: user.email },
+  };
 };
 
 export const logoutUser = async (token: string) => {
