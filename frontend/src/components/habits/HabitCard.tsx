@@ -1,10 +1,11 @@
 import { useHabits } from '../../hooks/useHabits.js';
 import type { Habit } from '../../types/habit.types.js';
 import {
-  isHabitDoneToday
+  calculateCurrentStreak,
+  calculateLongestStreak,
+  isHabitDoneToday,
 } from '../../utils/date.helpers.js';
 import styles from './HabitCard.module.scss';
-import 'react-tooltip/dist/react-tooltip.css';
 
 interface habitCardProps {
   habit: Habit;
@@ -18,16 +19,40 @@ const HabitCard = ({ habit }: habitCardProps) => {
 
   const isOperationPending = isTogglingHabit || isDeletingHabit;
 
+  const currentStreak = calculateCurrentStreak(habit.entries);
+  const longestStreak = calculateLongestStreak(habit.entries);
+
   return (
     <li className={styles.habitCard}>
       <div className={styles.habitCard__header}>
-        <span
-          className={`${styles.habitCard__name} ${
-            isDone ? styles.habitCard__name_done : ''
-          }`}
-        >
-          {habit.name}
-        </span>
+        <div className={styles.habitCard__info}>
+          <span
+            className={`${styles.habitCard__name} ${
+              isDone ? styles.habitCard__name_done : ''
+            }`}
+          >
+            {habit.name}
+          </span>
+
+          <div className={styles.habitCard__stats}>
+            {currentStreak > 0 && (
+              <span
+                className={`${styles.habitCard__stat} ${styles.habitCard__stat_current}`}
+              >
+                🔥 {currentStreak} {currentStreak === 1 ? 'dzień' : 'dni'}{' '}
+                serii!
+              </span>
+            )}
+            {longestStreak > 1 && (
+              <span
+                className={`${styles.habitCard__stat} ${styles.habitCard__stat_longest}`}
+              >
+                🏆 Rekord: {longestStreak}
+              </span>
+            )}
+          </div>
+        </div>
+
         <div className={styles.habitCard__actions}>
           <button
             onClick={() => toggleHabit(habit.id)}
