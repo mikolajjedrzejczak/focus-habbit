@@ -14,6 +14,7 @@ export const Navbar = () => {
       <Link to="/" className={styles.navbar__brand}>
         FocusHabit
       </Link>
+      <Link to="/pomodoro" className={styles.navbar__link}>Pomodoro</Link>
       <div className={styles.navbar__user_info}>
         <span className={styles.navbar__email}>{user?.email}</span>
         <button onClick={handleLogout} className={styles.navbar__logout_button}>

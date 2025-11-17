@@ -16,10 +16,18 @@ export const isHabitDoneToday = (habit: Habit) => {
   });
 };
 
+export const formatTime = (seconds: number) => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  return `${minutes.toString().padStart(2, '0')}:${remainingSeconds
+    .toString()
+    .padStart(2, '0')}`;
+};
+
 export const toUTCDateString = (date: Date) => {
   return date.toISOString().split('T')[0];
 };
-
 
 export const calculateCurrentStreak = (entries: HabitEntry[]) => {
   if (entries.length === 0) return 0;

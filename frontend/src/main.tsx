@@ -10,6 +10,7 @@ import RegisterPage from './pages/RegisterPage.tsx';
 import ProtectedRoute from './components/ProtectedRoute.tsx';
 import DashboardPage from './pages/DashboardPage.tsx';
 import NotFoundPage from './pages/NotFoundPage.tsx';
+import PomodoroPage from './pages/PomodoroPage.tsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <DashboardPage />,
+      },
+      {
+        path: '/pomodoro',
+        element: <PomodoroPage />,
       },
     ],
   },

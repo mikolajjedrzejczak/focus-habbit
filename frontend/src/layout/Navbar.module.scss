@@ -9,10 +9,28 @@
   background: var.$background-color;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
   &__brand {
     font-size: 1.5rem;
     font-weight: 700;
     color: var.$primary-color;
+  }
+
+  &__link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var.$text-color-light;
+    text-decoration: none;
+    transition: color .2s;
+
+    &:hover {
+      color: var.$primary-color;
+    }
   }
 
   &__user-info {
