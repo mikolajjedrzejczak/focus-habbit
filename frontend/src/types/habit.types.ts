@@ -7,7 +7,15 @@ export interface HabitEntry {
 export interface Habit {
   id: string;
   name: string;
-  userId: string;
+  listId: string;
   createdAt: string;
   entries: HabitEntry[];
+}
+
+export interface HabitList {
+  id: string;
+  name: string;
+  userId: string;
+  createdAt: string;
+  habits: Habit[];
 }

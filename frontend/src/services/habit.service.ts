@@ -3,11 +3,9 @@ import type { Habit } from '../types/habit.types';
 
 interface CreateHabitData {
   name: string;
+  listId: string;
 }
 
-export const getHabitsRequest = () => {
-  return apiClient.get<Habit[]>('/habits');
-};
 
 export const createHabitRequest = (data: CreateHabitData) => {
   return apiClient.post<Habit>('/habits', data);
